@@ -1,6 +1,4 @@
-
 package com.mycompany.vstoredto.dtos;
-
 
 public class PeliculaDTO {
 
@@ -8,6 +6,7 @@ public class PeliculaDTO {
     private String nombre;
     private byte[] img;
     private String genero;
+    private String descripcion;
 
     public PeliculaDTO(String nombre, byte[] img, String genero) {
         this.nombre = nombre;
@@ -20,6 +19,14 @@ public class PeliculaDTO {
         this.nombre = nombre;
         this.img = img;
         this.genero = genero;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getId() {

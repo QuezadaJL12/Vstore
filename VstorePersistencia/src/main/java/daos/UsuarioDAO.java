@@ -9,7 +9,6 @@ import dominio.Usuario;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-
 public class UsuarioDAO implements IUsuarioDAO {
 
     private IConexion conexion;
@@ -31,13 +30,14 @@ public class UsuarioDAO implements IUsuarioDAO {
         MongoClient cliente = conexion.obtenerCliente();
         MongoDatabase baseDatos = cliente.getDatabase("vstore");
         MongoCollection<Usuario> coleccion = baseDatos.getCollection("usuarios", Usuario.class);
+        System.out.println(usuario.getUsuario());
+        System.out.println(usuario.getContrasenia());
 
         Bson query = Filters.and(
                 Filters.eq("usuario", usuario.getUsuario()),
                 Filters.eq("contrasenia", usuario.getContrasenia())
         );
 
-        // Realizar la consulta
         Usuario result = coleccion.find(query).first();
         return result;
     }

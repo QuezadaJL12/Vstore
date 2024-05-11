@@ -1,6 +1,7 @@
 dominio\Usuario.class
 daos\Conexion.class
 daos\IPeliculaDAO.class
+pruebas\PruebaUsuarios.class
 dominio\Pelicula.class
 daos\IConexion.class
 daos\PeliculaDAO.class

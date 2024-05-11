@@ -1,14 +1,22 @@
 
 package com.mycompany.vstorepresentacion;
 
+import com.mycompany.vstoredto.dtos.UsuarioDTO;
+import com.mycompany.vstoreiniciarsesion.FuncionalidadIniciarSesion;
+import com.mycompany.vstoreiniciarsesion.IFuncionalidadIniciarSesion;
+import javax.swing.JOptionPane;
+
 
 public class FormIniciarSesion extends javax.swing.JFrame {
+
+    private IFuncionalidadIniciarSesion funcionalidadIniciarSesion;
 
     /**
      * Creates new form FormIniciarSecion
      */
     public FormIniciarSesion() {
         initComponents();
+        funcionalidadIniciarSesion = new FuncionalidadIniciarSesion();
     }
 
     /**
@@ -27,7 +35,8 @@ public class FormIniciarSesion extends javax.swing.JFrame {
         jLabelUsuario = new javax.swing.JLabel();
         jLabelContra = new javax.swing.JLabel();
         TextContra = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         FondoVstore = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,11 +72,22 @@ public class FormIniciarSesion extends javax.swing.JFrame {
         TextContra.setForeground(new java.awt.Color(255, 255, 255));
         PanelFondo.add(TextContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 310, 50));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Salir");
-        PanelFondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+        btnAceptar.setBackground(new java.awt.Color(0, 0, 0));
+        btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+        PanelFondo.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 580, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Salir");
+        PanelFondo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
         FondoVstore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         PanelFondo.add(FondoVstore, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1542, 840));
@@ -77,43 +97,27 @@ public class FormIniciarSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (TextUsuario.getText().isBlank() || String.valueOf(TextContra.getPassword()).isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son necesarios");
+            return;
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+        UsuarioDTO usuario = new UsuarioDTO();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormIniciarSesion().setVisible(true);
-            }
-        });
-    }
+        usuario.setUsuario(TextUsuario.getText());
+        usuario.setContrasenia(String.valueOf(TextContra.getPassword()));
+
+        UsuarioDTO usuarioConsultado = funcionalidadIniciarSesion.iniciarSesion(usuario);
+        if (usuarioConsultado == null) {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+
+        }
+        FormBuscarPelicula p = new FormBuscarPelicula(usuario);
+        p.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoVstore;
@@ -122,7 +126,8 @@ public class FormIniciarSesion extends javax.swing.JFrame {
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JPasswordField TextContra;
     private javax.swing.JTextField TextUsuario;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelContra;
     private javax.swing.JLabel jLabelUsuario;
     // End of variables declaration//GEN-END:variables

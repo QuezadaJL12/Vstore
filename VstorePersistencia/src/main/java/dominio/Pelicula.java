@@ -1,4 +1,3 @@
-
 package dominio;
 
 import org.bson.types.ObjectId;
@@ -9,6 +8,7 @@ public class Pelicula {
     private String nombre;
     private byte[] img;
     private String genero;
+    private String descripcion;
 
     public Pelicula(String nombre, byte[] img, String genero) {
         this.nombre = nombre;
@@ -21,6 +21,14 @@ public class Pelicula {
 
     public ObjectId getId() {
         return id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public void setId(ObjectId id) {

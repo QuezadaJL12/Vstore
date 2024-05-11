@@ -22,7 +22,11 @@ public class UsuariosBO implements IUsuariosBO {
 
     @Override
     public UsuarioDTO consultarUsuario(UsuarioDTO usuario) {
-        return this.convertirUsuarioADTO(usuarioDAO.consultar(convertirDTOAUsuario(usuario)));
+        Usuario usuarioConsultado = usuarioDAO.consultar(convertirDTOAUsuario(usuario));
+        if (usuarioConsultado == null) {
+            return null;
+        }
+        return this.convertirUsuarioADTO(usuarioConsultado);
     }
 
     @Override

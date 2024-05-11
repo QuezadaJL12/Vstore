@@ -18,4 +18,6 @@ public interface IConsultarPeliculasBO {
 
     public List<PeliculaDTO> consultarPorGenero(String genero);
 
+    public PeliculaDTO consultarPorNombre(String nombre);
+
 }

@@ -11,5 +11,7 @@ public interface IPeliculaDAO {
 
     public List<Pelicula> consultar(String nombre);
 
+    public Pelicula consultarPorNombre(String nombre);
+
     public List<Pelicula> consultarPorGenero(String nombre);
 }

@@ -8,6 +8,7 @@ import dominio.Pelicula;
 import java.util.LinkedList;
 import java.util.List;
 import static com.mongodb.client.model.Filters.regex;
+import static com.mongodb.client.model.Filters.eq;
 
 public class PeliculaDAO implements IPeliculaDAO {
 
@@ -59,4 +60,13 @@ public class PeliculaDAO implements IPeliculaDAO {
         return listaPelicula;
     }
 
+    @Override
+    public Pelicula consultarPorNombre(String nombre) {
+        MongoClient cliente = conexion.obtenerCliente();
+        MongoDatabase baseDatos = cliente.getDatabase("vstore");
+        MongoCollection<Pelicula> coleccion = baseDatos.getCollection("peliculas", Pelicula.class);
+        FindIterable<Pelicula> resultados = coleccion.find(eq("nombre", nombre));
+
+        return resultados.first();
+    }
 }

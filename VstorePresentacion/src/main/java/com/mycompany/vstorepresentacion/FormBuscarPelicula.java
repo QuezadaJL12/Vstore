@@ -8,6 +8,8 @@ import com.mycompany.vstoreconsultarpelicula.IFuncionalidadConsultarPeliculasPor
 import com.mycompany.vstoreconsultarpeliculas.FuncionalidadConsultarPeliculas;
 import com.mycompany.vstoreconsultarpeliculas.IFuncionalidadConsultarPeliculas;
 import com.mycompany.vstoredto.dtos.PeliculaDTO;
+import com.mycompany.vstoredto.dtos.UsuarioDTO;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -19,7 +21,6 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -28,12 +29,14 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
     private IFuncionalidadConsultarPeliculas funcionalidadConsultarPeliculas;
     private IFuncionalidadConsultarPeliculasPorGenero funcionalidadConsultarPeliculasPorGenero;
     private IFuncionalidadAgregarPelicula funcionalidadAgregarPelicula;
+    private UsuarioDTO usuario;
 
     /**
      * Creates new form FormBuscarPeliculas
      */
-    public FormBuscarPelicula() {
+    public FormBuscarPelicula(UsuarioDTO usuario) {
         initComponents();
+        this.usuario = usuario;
         this.setLocationRelativeTo(null);
         funcionalidadConsultarPeliculas = new FuncionalidadConsultarPeliculas();
         funcionalidadConsultarPeliculasPorGenero = new FuncionalidadConsultarPeliculasPorGenero();
@@ -41,7 +44,17 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         List<PeliculaDTO> listaPeliculas = funcionalidadConsultarPeliculas.consultarPeliculas();
 
         llenarPanel(listaPeliculas);
+        // Convertir el color RGB 0c212e a componentes individuales de rojo, verde y azul
+        int red = Integer.parseInt("0c", 16); // Convertir de hexadecimal a decimal
+        int green = Integer.parseInt("21", 16); // Convertir de hexadecimal a decimal
+        int blue = Integer.parseInt("2e", 16); // Convertir de hexadecimal a decimal
+
+// Crear un nuevo objeto Color con los componentes RGB
+        Color colorFondo = new Color(red, green, blue);
+
+// Establecer el color de fondo del panel
         this.PeliculasPanel.setLayout(new GridLayout(0, 2));
+        this.PeliculasPanel.setBackground(colorFondo);
     }
 
     /**
@@ -65,6 +78,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         PeliculasPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -167,7 +181,13 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         });
         getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 170, -1, -1));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        getContentPane().add(PeliculasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 430, 510));
+
+        PeliculasPanel.setBackground(new java.awt.Color(12, 33, 46));
+        getContentPane().add(PeliculasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 430, 430));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -211,8 +231,11 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // Accede al nombre del botón y muéstralo
-                    String nombreBoton = button.getNombre();
-                    JOptionPane.showMessageDialog(null, "Se hizo clic en el botón: " + nombreBoton);
+                    String nombre = button.getNombre();
+                    FormPeliculaDetalle p = new FormPeliculaDetalle(nombre);
+                    p.setVisible(true);
+                    dispose();
+
                 }
             });
             PeliculasPanel.add(createButtonPanel(button));
@@ -277,44 +300,12 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         llenarPanel(listaPeliculas);
     }
 // Método para crear un panel que contenga un botón con FlowLayout
+
     private JPanel createButtonPanel(JButton button) {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); // FlowLayout centrado sin espaciado
+        buttonPanel.setBackground(new Color(12, 33, 46)); // Color RGB 0c212e
         buttonPanel.add(button);
         return buttonPanel;
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormBuscarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormBuscarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormBuscarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormBuscarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormBuscarPelicula().setVisible(true);
-            }
-        });
     }
 
 
@@ -329,6 +320,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnTerror;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

@@ -1,4 +1,3 @@
-
 package com.mycompany.vstorenegocio.negocio;
 
 import com.mycompany.vstoredto.dtos.PeliculaDTO;
@@ -7,15 +6,14 @@ import dominio.Pelicula;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class ConsultarPeliculasBO implements IConsultarPeliculasBO {
-
+    
     private PeliculaDAO peliculaDAO;
-
+    
     public ConsultarPeliculasBO() {
         peliculaDAO = new PeliculaDAO();
     }
-
+    
     @Override
     public List<PeliculaDTO> consultar() {
         List<Pelicula> peliculas = peliculaDAO.consultar();
@@ -25,7 +23,7 @@ public class ConsultarPeliculasBO implements IConsultarPeliculasBO {
         }
         return peliculasDTO;
     }
-
+    
     @Override
     public List<PeliculaDTO> consultar(String nombre) {
         List<Pelicula> peliculas = peliculaDAO.consultar(nombre);
@@ -35,19 +33,20 @@ public class ConsultarPeliculasBO implements IConsultarPeliculasBO {
         }
         return peliculasDTO;
     }
-
+    
     @Override
     public PeliculaDTO convertirPeliculaADTO(Pelicula pelicula) {
         PeliculaDTO peliculaDTO = new PeliculaDTO(pelicula.getId().toString(), pelicula.getNombre(), pelicula.getImg(), pelicula.getGenero());
+        peliculaDTO.setDescripcion(pelicula.getDescripcion());
         return peliculaDTO;
     }
-
+    
     @Override
     public Pelicula convertirDTOAPelicula(PeliculaDTO peliculaDTO) {
         Pelicula pelicula = new Pelicula(peliculaDTO.getNombre(), peliculaDTO.getImg(), peliculaDTO.getGenero());
         return pelicula;
     }
-
+    
     @Override
     public List<PeliculaDTO> consultarPorGenero(String genero) {
         List<Pelicula> peliculas = peliculaDAO.consultarPorGenero(genero);
@@ -57,5 +56,12 @@ public class ConsultarPeliculasBO implements IConsultarPeliculasBO {
         }
         return peliculasDTO;
     }
-
+    
+    @Override
+    public PeliculaDTO consultarPorNombre(String nombre) {
+        Pelicula pelicula = peliculaDAO.consultarPorNombre(nombre);
+        
+        return this.convertirPeliculaADTO(pelicula);
+    }
+    
 }

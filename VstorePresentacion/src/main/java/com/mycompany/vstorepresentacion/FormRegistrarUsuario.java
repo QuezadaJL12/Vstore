@@ -1,14 +1,23 @@
 
 package com.mycompany.vstorepresentacion;
 
+import com.mycompany.vstoredto.dtos.UsuarioDTO;
+import com.mycompany.vstoreregistrarusuario.FuncionalidadRegistrarUsuario;
+import com.mycompany.vstoreregistrarusuario.IFuncionalidadRegistrarUsuario;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 
 public class FormRegistrarUsuario extends javax.swing.JFrame {
+
+    private IFuncionalidadRegistrarUsuario funcionalidadRegistraUsuario;
 
     /**
      * Creates new form FormIniciarSecion
      */
     public FormRegistrarUsuario() {
         initComponents();
+        funcionalidadRegistraUsuario = new FuncionalidadRegistrarUsuario();
     }
 
     /**
@@ -27,7 +36,12 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
         jLabelUsuario = new javax.swing.JLabel();
         jLabelContra = new javax.swing.JLabel();
         TextContra = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
+        TextNombre = new javax.swing.JTextField();
+        jLabelUsuario1 = new javax.swing.JLabel();
+        jLabelContra1 = new javax.swing.JLabel();
+        TextContra2 = new javax.swing.JPasswordField();
+        jButton2 = new javax.swing.JButton();
         FondoVstore = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,7 +55,7 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
         IniciarSecion.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         IniciarSecion.setForeground(new java.awt.Color(255, 255, 255));
         IniciarSecion.setText("Iniciar Seción");
-        PanelFondo.add(IniciarSecion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
+        PanelFondo.add(IniciarSecion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
 
         TextUsuario.setBackground(new java.awt.Color(0, 0, 0));
         TextUsuario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -63,11 +77,42 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
         TextContra.setForeground(new java.awt.Color(255, 255, 255));
         PanelFondo.add(TextContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 310, 50));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Salir");
-        PanelFondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+        btnRegistrar.setBackground(new java.awt.Color(0, 0, 0));
+        btnRegistrar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        PanelFondo.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 680, -1, -1));
+
+        TextNombre.setBackground(new java.awt.Color(0, 0, 0));
+        TextNombre.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        TextNombre.setForeground(new java.awt.Color(255, 255, 255));
+        PanelFondo.add(TextNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, 310, 50));
+
+        jLabelUsuario1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelUsuario1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelUsuario1.setText("Nombre");
+        PanelFondo.add(jLabelUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
+
+        jLabelContra1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelContra1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelContra1.setText("Contraseña:");
+        PanelFondo.add(jLabelContra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, -1, -1));
+
+        TextContra2.setBackground(new java.awt.Color(0, 0, 0));
+        TextContra2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        TextContra2.setForeground(new java.awt.Color(255, 255, 255));
+        PanelFondo.add(TextContra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 500, 310, 50));
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Salir");
+        PanelFondo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
         FondoVstore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         PanelFondo.add(FondoVstore, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1542, 840));
@@ -76,6 +121,25 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if (TextNombre.getText().isBlank() || TextUsuario.getText().isBlank() || String.valueOf(TextContra.getPassword()).isBlank() || String.valueOf(TextContra2.getPassword()).isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son necesarios");
+            return;
+        }
+        if (!Arrays.equals(TextContra.getPassword(), TextContra2.getPassword())) {
+            System.out.println(TextContra.getPassword());
+            System.out.println(TextContra2.getPassword());
+
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+            return;
+        }
+        UsuarioDTO usuario = new UsuarioDTO();
+        usuario.setNombre(TextNombre.getText());
+        usuario.setUsuario(TextUsuario.getText());
+        usuario.setContrasenia(String.valueOf(TextContra.getPassword()));
+        funcionalidadRegistraUsuario.registrarUsuario(usuario);
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,9 +189,14 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel LogoVstore;
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JPasswordField TextContra;
+    private javax.swing.JPasswordField TextContra2;
+    private javax.swing.JTextField TextNombre;
     private javax.swing.JTextField TextUsuario;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelContra;
+    private javax.swing.JLabel jLabelContra1;
     private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JLabel jLabelUsuario1;
     // End of variables declaration//GEN-END:variables
 }
