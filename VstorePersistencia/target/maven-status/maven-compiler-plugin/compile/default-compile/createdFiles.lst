@@ -1,0 +1,8 @@
+dominio\Usuario.class
+daos\Conexion.class
+daos\IPeliculaDAO.class
+dominio\Pelicula.class
+daos\IConexion.class
+daos\PeliculaDAO.class
+daos\UsuarioDAO.class
+daos\IUsuarioDAO.class

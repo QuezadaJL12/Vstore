@@ -1,0 +1,4 @@
+com\mycompany\vstorenegocio\negocio\ConsultarPeliculasBO.class
+com\mycompany\vstorenegocio\negocio\IConsultarPeliculasBO.class
+com\mycompany\vstorenegocio\negocio\AgregarPeliculaBO.class
+com\mycompany\vstorenegocio\negocio\IAgregarPeliculaBO.class
