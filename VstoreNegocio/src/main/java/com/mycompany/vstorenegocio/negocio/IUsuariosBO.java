@@ -3,7 +3,6 @@ package com.mycompany.vstorenegocio.negocio;
 import com.mycompany.vstoredto.dtos.UsuarioDTO;
 import dominio.Usuario;
 
-
 public interface IUsuariosBO {
 
     public void agregarUsuario(UsuarioDTO usuario);

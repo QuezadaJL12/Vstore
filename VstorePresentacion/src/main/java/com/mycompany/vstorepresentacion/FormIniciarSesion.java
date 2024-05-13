@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoredto.dtos.UsuarioDTO;
@@ -6,7 +9,10 @@ import com.mycompany.vstoreiniciarsesion.FuncionalidadIniciarSesion;
 import com.mycompany.vstoreiniciarsesion.IFuncionalidadIniciarSesion;
 import javax.swing.JOptionPane;
 
-
+/**
+ *
+ * @author Usuario
+ */
 public class FormIniciarSesion extends javax.swing.JFrame {
 
     private IFuncionalidadIniciarSesion funcionalidadIniciarSesion;

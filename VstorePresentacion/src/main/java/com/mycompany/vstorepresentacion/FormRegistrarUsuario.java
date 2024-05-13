@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoredto.dtos.UsuarioDTO;
@@ -7,7 +10,10 @@ import com.mycompany.vstoreregistrarusuario.IFuncionalidadRegistrarUsuario;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-
+/**
+ *
+ * @author Usuario
+ */
 public class FormRegistrarUsuario extends javax.swing.JFrame {
 
     private IFuncionalidadRegistrarUsuario funcionalidadRegistraUsuario;

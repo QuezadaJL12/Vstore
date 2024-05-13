@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoredetallepelicula.FuncionalidadDetallePelicula;
@@ -10,7 +13,10 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-
+/**
+ *
+ * @author Usuario
+ */
 public class FormPeliculaDetalle extends javax.swing.JFrame {
 
     IFuncionalidadDetallePelicula funcionalidadDetallePelicula;

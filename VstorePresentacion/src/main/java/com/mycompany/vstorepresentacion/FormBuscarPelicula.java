@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoreagregarpelicula.FuncionalidadAgregarPelicula;
@@ -23,7 +26,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
+/**
+ *
+ * @author Usuario
+ */
 public class FormBuscarPelicula extends javax.swing.JFrame {
 
     private IFuncionalidadConsultarPeliculas funcionalidadConsultarPeliculas;
@@ -187,7 +193,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
