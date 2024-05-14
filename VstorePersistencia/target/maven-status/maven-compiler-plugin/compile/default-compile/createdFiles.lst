@@ -1,12 +1,13 @@
 dominio\Usuario.class
 daos\Conexion.class
+daos\FavoritoDAO.class
+dominio\Pelicula.class
+daos\IFavoritoDAO.class
+daos\IUsuarioDAO.class
 daos\IPeliculaDAO.class
 dominio\Favorito.class
 pruebas\PruebaUsuarios.class
-daos\FavoritoDAO.class
-dominio\Pelicula.class
 daos\IConexion.class
-daos\IFavoritoDAO.class
+pruebas\PruebaFavoritos.class
 daos\PeliculaDAO.class
 daos\UsuarioDAO.class
-daos\IUsuarioDAO.class

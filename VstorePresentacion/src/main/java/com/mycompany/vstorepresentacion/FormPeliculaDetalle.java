@@ -1,33 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.vstorepresentacion;
 
+import com.mycompany.vstoreagregarfavoritos.FuncionalidadAgregarFavoritos;
+import com.mycompany.vstoreagregarfavoritos.IFuncionalidadAgregarFavoritos;
+import com.mycompany.vstoreconsultarfavoritos.FuncionalidadConsultarFavoritos;
+import com.mycompany.vstoreconsultarfavoritos.IFuncionalidadConsultarFavoritos;
 import com.mycompany.vstoredetallepelicula.FuncionalidadDetallePelicula;
 import com.mycompany.vstoredetallepelicula.IFuncionalidadDetallePelicula;
+import com.mycompany.vstoredto.dtos.FavoritoDTO;
 import com.mycompany.vstoredto.dtos.PeliculaDTO;
+import com.mycompany.vstoredto.dtos.UsuarioDTO;
+import com.mycompany.vstoreeliminarfavorito.FuncionalidadEliminarFavorito;
+import com.mycompany.vstoreeliminarfavorito.IFuncionalidadEliminarFavorito;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author Usuario
- */
+
 public class FormPeliculaDetalle extends javax.swing.JFrame {
 
-    IFuncionalidadDetallePelicula funcionalidadDetallePelicula;
+    private IFuncionalidadDetallePelicula funcionalidadDetallePelicula;
+    private IFuncionalidadAgregarFavoritos funcionalidadAgregarFavoritos;
+    private IFuncionalidadConsultarFavoritos funcionalidadConsultarFavoritos;
+    private IFuncionalidadEliminarFavorito funcionadalidadEliminarFavoritos;
+    private UsuarioDTO usuario;
+    private PeliculaDTO pelicula;
 
     /**
      * Creates new form FormPeliculaDetalle
      */
-    public FormPeliculaDetalle(String nombre) {
+    public FormPeliculaDetalle(String nombre, UsuarioDTO usuario) {
         initComponents();
         funcionalidadDetallePelicula = new FuncionalidadDetallePelicula();
-        PeliculaDTO pelicula = funcionalidadDetallePelicula.consultarPelicula(nombre);
+        funcionalidadAgregarFavoritos = new FuncionalidadAgregarFavoritos();
+        funcionalidadConsultarFavoritos = new FuncionalidadConsultarFavoritos();
+        funcionadalidadEliminarFavoritos = new FuncionalidadEliminarFavorito();
+        pelicula = funcionalidadDetallePelicula.consultarPelicula(nombre);
+        this.usuario = usuario;
+        labelDescripcion.setEditable(false);
         labelDescripcion.setText(pelicula.getDescripcion());
         labelNombre.setText(pelicula.getNombre());
         BufferedImage image = null;
@@ -37,6 +49,19 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (consultarFavorito()) {
+            btnFavorito.setText("Agregar favorito");
+
+        } else {
+            btnFavorito.setText("Quitar favorito");
+
+        }
+
+    }
+
+    public boolean consultarFavorito() {
+        FavoritoDTO favorito = funcionalidadConsultarFavoritos.consultarFavorito(usuario.getUsuario(), pelicula.getNombre());
+        return favorito == null;
     }
 
     /**
@@ -50,12 +75,15 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
 
         panelFondo = new javax.swing.JPanel();
         labelNombre = new javax.swing.JLabel();
-        labelDescripcion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         labelImagen = new javax.swing.JLabel();
+        btnFavorito = new javax.swing.JButton();
+        labelNom = new javax.swing.JLabel();
+        labelNombre1 = new javax.swing.JLabel();
+        labelDescripcion = new javax.swing.JTextArea();
         Fondo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,13 +92,8 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
 
         labelNombre.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelNombre.setForeground(new java.awt.Color(255, 255, 255));
-        labelNombre.setText("Nombre");
-        panelFondo.add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, -1));
-
-        labelDescripcion.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        labelDescripcion.setForeground(new java.awt.Color(255, 255, 255));
-        labelDescripcion.setText("Descripción");
-        panelFondo.add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, -1, -1));
+        labelNombre.setText("nombre");
+        panelFondo.add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 300, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/VSTORE.drawio.png"))); // NOI18N
         panelFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
@@ -79,32 +102,86 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnVolver.setForeground(new java.awt.Color(255, 255, 255));
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
         panelFondo.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+        panelFondo.add(labelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 160, 250));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Favorito");
-        panelFondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 550, 140, 40));
-        panelFondo.add(labelImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 120, 170));
+        btnFavorito.setBackground(new java.awt.Color(0, 0, 0));
+        btnFavorito.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnFavorito.setForeground(new java.awt.Color(255, 255, 255));
+        btnFavorito.setText("Favorito");
+        btnFavorito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFavoritoActionPerformed(evt);
+            }
+        });
+        panelFondo.add(btnFavorito, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 550, 290, 40));
+
+        labelNom.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelNom.setForeground(new java.awt.Color(255, 255, 255));
+        labelNom.setText("Nombre:");
+        panelFondo.add(labelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, -1, -1));
+
+        labelNombre1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelNombre1.setForeground(new java.awt.Color(255, 255, 255));
+        labelNombre1.setText("Descripcion:");
+        panelFondo.add(labelNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 170, -1));
+
+        labelDescripcion.setBackground(new java.awt.Color(12, 33, 46));
+        labelDescripcion.setColumns(20);
+        labelDescripcion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        labelDescripcion.setRows(5);
+        labelDescripcion.setText("Descripcion\n");
+        panelFondo.add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 360, 80));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
-        panelFondo.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        panelFondo.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -20, -1, -1));
+        panelFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, -1, -1));
 
         getContentPane().add(panelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 760));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnFavoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritoActionPerformed
+        FavoritoDTO favorito = new FavoritoDTO();
+        favorito.setPelicula(pelicula.getNombre());
+        favorito.setUsuario(usuario.getUsuario());
+        if (consultarFavorito()) {
+
+            funcionalidadAgregarFavoritos.agregarFavoritos(favorito);
+            btnFavorito.setText("Quitar favorito");
+
+        } else {
+            funcionadalidadEliminarFavoritos.eliminarFavorito(favorito);
+            btnFavorito.setText("Agregar favorito");
+
+        }
+    }//GEN-LAST:event_btnFavoritoActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        FormBuscarPelicula p = new FormBuscarPelicula(usuario);
+        p.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fondo;
+    private javax.swing.JButton btnFavorito;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel labelDescripcion;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea labelDescripcion;
     private javax.swing.JLabel labelImagen;
+    private javax.swing.JLabel labelNom;
     private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelNombre1;
     private javax.swing.JPanel panelFondo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoreagregarpelicula.FuncionalidadAgregarPelicula;
 import com.mycompany.vstoreagregarpelicula.IFuncionalidadAgregarPelicula;
+import com.mycompany.vstoreconsultarfavoritos.FuncionalidadConsultarFavoritos;
+import com.mycompany.vstoreconsultarfavoritos.IFuncionalidadConsultarFavoritos;
 import com.mycompany.vstoreconsultarpelicula.FuncionalidadConsultarPeliculasPorGenero;
 import com.mycompany.vstoreconsultarpelicula.IFuncionalidadConsultarPeliculasPorGenero;
 import com.mycompany.vstoreconsultarpeliculas.FuncionalidadConsultarPeliculas;
 import com.mycompany.vstoreconsultarpeliculas.IFuncionalidadConsultarPeliculas;
+import com.mycompany.vstoredto.dtos.FavoritoDTO;
 import com.mycompany.vstoredto.dtos.PeliculaDTO;
 import com.mycompany.vstoredto.dtos.UsuarioDTO;
 import java.awt.Color;
@@ -21,20 +21,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Usuario
- */
+
 public class FormBuscarPelicula extends javax.swing.JFrame {
 
     private IFuncionalidadConsultarPeliculas funcionalidadConsultarPeliculas;
     private IFuncionalidadConsultarPeliculasPorGenero funcionalidadConsultarPeliculasPorGenero;
     private IFuncionalidadAgregarPelicula funcionalidadAgregarPelicula;
+    private IFuncionalidadConsultarFavoritos funcionalidadConsultarFavoritos;
     private UsuarioDTO usuario;
 
     /**
@@ -42,11 +41,13 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
      */
     public FormBuscarPelicula(UsuarioDTO usuario) {
         initComponents();
+
         this.usuario = usuario;
         this.setLocationRelativeTo(null);
         funcionalidadConsultarPeliculas = new FuncionalidadConsultarPeliculas();
         funcionalidadConsultarPeliculasPorGenero = new FuncionalidadConsultarPeliculasPorGenero();
         funcionalidadAgregarPelicula = new FuncionalidadAgregarPelicula();
+        funcionalidadConsultarFavoritos = new FuncionalidadConsultarFavoritos();
         List<PeliculaDTO> listaPeliculas = funcionalidadConsultarPeliculas.consultarPeliculas();
 
         llenarPanel(listaPeliculas);
@@ -82,6 +83,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         btnFavoritos1 = new javax.swing.JButton();
         btnAccion1 = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        btnTodos = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         PeliculasPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -94,7 +96,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Lupa.png"))); // NOI18N
         jLabel3.setMaximumSize(new java.awt.Dimension(45, 45));
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 70, 50));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 60, 50));
 
         BuscarPelicula.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BuscarPelicula.setForeground(new java.awt.Color(204, 204, 204));
@@ -185,7 +187,18 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 170, -1, -1));
+        getContentPane().add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+
+        btnTodos.setBackground(new java.awt.Color(0, 0, 102));
+        btnTodos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnTodos.setForeground(new java.awt.Color(255, 255, 255));
+        btnTodos.setText("Todos");
+        btnTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTodosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         PeliculasPanel.setBackground(new java.awt.Color(12, 33, 46));
@@ -227,7 +240,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         for (PeliculaDTO pelicula : listaPeliculas) {
             BufferedImage image = null;
             try {
-                image = ImageIO.read(new ByteArrayInputStream(pelicula.getImg())); // Cambia "imagen.jpg" por la ruta de tu imagen
+                image = ImageIO.read(new ByteArrayInputStream(pelicula.getImg()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -238,7 +251,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     // Accede al nombre del botón y muéstralo
                     String nombre = button.getNombre();
-                    FormPeliculaDetalle p = new FormPeliculaDetalle(nombre);
+                    FormPeliculaDetalle p = new FormPeliculaDetalle(nombre, usuario);
                     p.setVisible(true);
                     dispose();
 
@@ -258,7 +271,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
             this.image = image;
             this.nombre = nombre;
             if (image != null) {
-                setPreferredSize(new Dimension(120, 170));
+                setPreferredSize(new Dimension(100, 200));
             }
         }
 
@@ -276,36 +289,56 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
     }
     private void BuscarPeliculaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BuscarPeliculaKeyReleased
         if (BuscarPelicula.getText().isBlank()) {
-            //llenarTabla();
+            List<PeliculaDTO> listaPeliculas = funcionalidadConsultarPeliculas.consultarPeliculas();
+
+            llenarPanel(listaPeliculas);
 
             return;
         }
         List<PeliculaDTO> peliculas = funcionalidadConsultarPeliculas.consultarPeliculasPorNombre(BuscarPelicula.getText());
-        for (PeliculaDTO pelicula : peliculas) {
-            System.out.println(pelicula.getNombre());
-        }
+        llenarPanel(peliculas);
     }//GEN-LAST:event_BuscarPeliculaKeyReleased
 
     private void btnFavoritos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritos1ActionPerformed
-        // TODO add your handling code here:
+        System.out.println(usuario.getNombre());
+
+        List<FavoritoDTO> favoritos = funcionalidadConsultarFavoritos.consultarFavoritos(usuario.getNombre());
+        System.out.println(favoritos);
+
+        List<PeliculaDTO> peliculasConsultadas = new ArrayList<>();
+        if (favoritos != null) {
+            for (FavoritoDTO favorito : favoritos) {
+                List<PeliculaDTO> peliculas = funcionalidadConsultarPeliculas.consultarPeliculasPorNombre(favorito.getPelicula());
+
+                peliculasConsultadas.add(peliculas.get(0));
+            }
+        }
+        System.out.println(peliculasConsultadas);
+        llenarPanel(peliculasConsultadas);
+
     }//GEN-LAST:event_btnFavoritos1ActionPerformed
 
     private void btnAccion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccion1ActionPerformed
-        // TODO add your handling code here:
+        BuscarPelicula.setText("");
+        this.buscarGenero("Accion");
     }//GEN-LAST:event_btnAccion1ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-        FormAgregarPelicula p = new FormAgregarPelicula();
+        FormAgregarPelicula p = new FormAgregarPelicula(usuario);
         p.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
+        List<PeliculaDTO> listaPeliculas = funcionalidadConsultarPeliculas.consultarPeliculas();
+
+        llenarPanel(listaPeliculas);
+    }//GEN-LAST:event_btnTodosActionPerformed
 
     private void buscarGenero(String nombre) {
         List<PeliculaDTO> listaPeliculas = funcionalidadConsultarPeliculasPorGenero.consultarPeliculas(nombre);
         llenarPanel(listaPeliculas);
     }
-// Método para crear un panel que contenga un botón con FlowLayout
 
     private JPanel createButtonPanel(JButton button) {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); // FlowLayout centrado sin espaciado
@@ -313,7 +346,6 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         buttonPanel.add(button);
         return buttonPanel;
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BuscarPelicula;
@@ -325,6 +357,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
     private javax.swing.JButton btnFavoritos1;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnTerror;
+    private javax.swing.JButton btnTodos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

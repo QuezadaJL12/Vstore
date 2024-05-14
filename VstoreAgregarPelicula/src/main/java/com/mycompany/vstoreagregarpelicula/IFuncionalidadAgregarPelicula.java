@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+/**
+ * Interfaz que define la funcionalidad de agregar una película a la tienda virtual.
  */
 package com.mycompany.vstoreagregarpelicula;
 
 import com.mycompany.vstoredto.dtos.PeliculaDTO;
 
-/**
- *
- * @author af_da
- */
 public interface IFuncionalidadAgregarPelicula {
+    /**
+     * Método para agregar una película a la tienda virtual.
+     * @param pelicula Objeto PeliculaDTO que contiene la información de la película a agregar.
+     * @return Objeto PeliculaDTO con la información de la película agregada.
+     */
     public PeliculaDTO agregarPelicula(PeliculaDTO pelicula);
 }

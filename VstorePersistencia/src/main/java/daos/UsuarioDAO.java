@@ -1,4 +1,6 @@
-
+/**
+ * Clase que implementa la interfaz IUsuarioDAO y define los métodos para realizar operaciones CRUD en la colección de usuarios en la base de datos MongoDB.
+ */
 package daos;
 
 import com.mongodb.client.MongoClient;
@@ -6,14 +8,15 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import dominio.Usuario;
-import org.bson.Document;
 import org.bson.conversions.Bson;
-
 
 public class UsuarioDAO implements IUsuarioDAO {
 
     private IConexion conexion;
 
+    /**
+     * Constructor de la clase UsuarioDAO que inicializa la conexión con la base de datos.
+     */
     public UsuarioDAO() {
         conexion = new Conexion();
     }
@@ -31,14 +34,14 @@ public class UsuarioDAO implements IUsuarioDAO {
         MongoClient cliente = conexion.obtenerCliente();
         MongoDatabase baseDatos = cliente.getDatabase("vstore");
         MongoCollection<Usuario> coleccion = baseDatos.getCollection("usuarios", Usuario.class);
-        System.out.println(usuario.getUsuario());
-        System.out.println(usuario.getContrasenia());
 
+        // Construir la consulta
         Bson query = Filters.and(
                 Filters.eq("usuario", usuario.getUsuario()),
                 Filters.eq("contrasenia", usuario.getContrasenia())
         );
 
+        // Realizar la consulta
         Usuario result = coleccion.find(query).first();
         return result;
     }
@@ -49,6 +52,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         MongoDatabase baseDatos = cliente.getDatabase("vstore");
         MongoCollection<Usuario> coleccion = baseDatos.getCollection("usuarios", Usuario.class);
 
+        // Construir la consulta
         Bson query = Filters.eq("usuario", nombre);
 
         // Realizar la consulta

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoredto.dtos.UsuarioDTO;
@@ -9,10 +6,7 @@ import com.mycompany.vstoreiniciarsesion.FuncionalidadIniciarSesion;
 import com.mycompany.vstoreiniciarsesion.IFuncionalidadIniciarSesion;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Usuario
- */
+
 public class FormIniciarSesion extends javax.swing.JFrame {
 
     private IFuncionalidadIniciarSesion funcionalidadIniciarSesion;
@@ -43,6 +37,7 @@ public class FormIniciarSesion extends javax.swing.JFrame {
         TextContra = new javax.swing.JPasswordField();
         btnAceptar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnRegistrarse = new javax.swing.JButton();
         FondoVstore = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,7 +50,7 @@ public class FormIniciarSesion extends javax.swing.JFrame {
 
         IniciarSecion.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         IniciarSecion.setForeground(new java.awt.Color(255, 255, 255));
-        IniciarSecion.setText("Iniciar Seción");
+        IniciarSecion.setText("Iniciar Sesión");
         PanelFondo.add(IniciarSecion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
 
         TextUsuario.setBackground(new java.awt.Color(0, 0, 0));
@@ -87,13 +82,24 @@ public class FormIniciarSesion extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
-        PanelFondo.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 580, -1, -1));
+        PanelFondo.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 500, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Salir");
         PanelFondo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+
+        btnRegistrarse.setBackground(new java.awt.Color(0, 0, 0));
+        btnRegistrarse.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRegistrarse.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarse.setText("Registrar");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
+        PanelFondo.add(btnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 500, -1, -1));
 
         FondoVstore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         PanelFondo.add(FondoVstore, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1542, 840));
@@ -116,13 +122,18 @@ public class FormIniciarSesion extends javax.swing.JFrame {
         UsuarioDTO usuarioConsultado = funcionalidadIniciarSesion.iniciarSesion(usuario);
         if (usuarioConsultado == null) {
             JOptionPane.showMessageDialog(this, "Usuario no encontrado");
-
+            return;
         }
-        FormBuscarPelicula p = new FormBuscarPelicula(usuario);
+        FormBuscarPelicula p = new FormBuscarPelicula(usuarioConsultado);
         p.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        FormRegistrarUsuario p = new FormRegistrarUsuario();
+        p.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -133,6 +144,7 @@ public class FormIniciarSesion extends javax.swing.JFrame {
     private javax.swing.JPasswordField TextContra;
     private javax.swing.JTextField TextUsuario;
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnRegistrarse;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelContra;
     private javax.swing.JLabel jLabelUsuario;

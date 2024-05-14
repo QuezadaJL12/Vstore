@@ -1,3 +1,6 @@
+/**
+ * Clase que implementa la interfaz IPeliculaDAO y define los métodos para realizar operaciones CRUD en la colección de películas en la base de datos MongoDB.
+ */
 package daos;
 
 import com.mongodb.client.FindIterable;
@@ -14,6 +17,9 @@ public class PeliculaDAO implements IPeliculaDAO {
 
     private IConexion conexion;
 
+    /**
+     * Constructor de la clase PeliculaDAO que inicializa la conexión con la base de datos.
+     */
     public PeliculaDAO() {
         conexion = new Conexion();
     }

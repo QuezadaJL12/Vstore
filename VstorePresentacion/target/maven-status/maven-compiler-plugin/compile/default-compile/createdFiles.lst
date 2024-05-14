@@ -5,8 +5,11 @@ com\mycompany\vstorepresentacion\FormBuscarPelicula$10.class
 com\mycompany\vstorepresentacion\FormRegistrarUsuario$1.class
 com\mycompany\vstorepresentacion\Presentacion.class
 com\mycompany\vstorepresentacion\FormBuscarPelicula$7.class
+com\mycompany\vstorepresentacion\FormPeliculaDetalle$1.class
 com\mycompany\vstorepresentacion\FormIniciarSesion$1.class
+com\mycompany\vstorepresentacion\FormPeliculaDetalle$2.class
 com\mycompany\vstorepresentacion\FormAgregarPelicula$2.class
+com\mycompany\vstorepresentacion\FormBuscarPelicula$11.class
 com\mycompany\vstorepresentacion\FormRegistrarUsuario$2.class
 com\mycompany\vstorepresentacion\FormPeliculaDetalle.class
 com\mycompany\vstorepresentacion\FormBuscarPelicula$4.class
@@ -20,4 +23,5 @@ com\mycompany\vstorepresentacion\FormBuscarPelicula$6.class
 com\mycompany\vstorepresentacion\FormIniciarSesion.class
 com\mycompany\vstorepresentacion\FormAgregarPelicula$3.class
 com\mycompany\vstorepresentacion\FormBuscarPelicula$5.class
+com\mycompany\vstorepresentacion\FormIniciarSesion$2.class
 com\mycompany\vstorepresentacion\FormAgregarPelicula$1.class

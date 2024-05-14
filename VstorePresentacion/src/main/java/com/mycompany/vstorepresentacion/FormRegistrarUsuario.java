@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoredto.dtos.UsuarioDTO;
@@ -10,10 +7,7 @@ import com.mycompany.vstoreregistrarusuario.IFuncionalidadRegistrarUsuario;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Usuario
- */
+
 public class FormRegistrarUsuario extends javax.swing.JFrame {
 
     private IFuncionalidadRegistrarUsuario funcionalidadRegistraUsuario;
@@ -48,6 +42,7 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
         jLabelContra1 = new javax.swing.JLabel();
         TextContra2 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
+        btnRegistrarse = new javax.swing.JButton();
         FondoVstore = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,6 +115,17 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
         jButton2.setText("Salir");
         PanelFondo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
+        btnRegistrarse.setBackground(new java.awt.Color(0, 0, 0));
+        btnRegistrarse.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnRegistrarse.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarse.setText("Tengo cuenta");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
+        PanelFondo.add(btnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 680, -1, -1));
+
         FondoVstore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         PanelFondo.add(FondoVstore, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1542, 840));
 
@@ -145,49 +151,18 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
         usuario.setUsuario(TextUsuario.getText());
         usuario.setContrasenia(String.valueOf(TextContra.getPassword()));
         funcionalidadRegistraUsuario.registrarUsuario(usuario);
+        JOptionPane.showMessageDialog(this, "Usuario registrado");
+        FormIniciarSesion p = new FormIniciarSesion();
+        p.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormRegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormRegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormRegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormRegistrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        FormIniciarSesion p = new FormIniciarSesion();
+        p.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormRegistrarUsuario().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoVstore;
@@ -199,6 +174,7 @@ public class FormRegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField TextNombre;
     private javax.swing.JTextField TextUsuario;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnRegistrarse;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelContra;
     private javax.swing.JLabel jLabelContra1;
