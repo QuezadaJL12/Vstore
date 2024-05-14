@@ -55,6 +55,8 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 200));
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -129,7 +131,7 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
         if (file != null) {
             try {
                 BufferedImage image = ImageIO.read(file);
-                int targetWidth = 100; 
+                int targetWidth = 133; 
                 int targetHeight = 200; 
                 BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
                 Graphics2D graphics = resizedImage.createGraphics();
@@ -159,12 +161,12 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
         pelicula.setDescripcion(txtDescripcion.getText());
         PeliculaDTO peliculaAgregada = funcionalidadAgregarPelicula.agregarPelicula(pelicula);
         if (peliculaAgregada != null) {
-            JOptionPane.showMessageDialog(this, "Pelicuala agregada");
+            JOptionPane.showMessageDialog(this, "Pelicula agregada");
             FormBuscarPelicula p = new FormBuscarPelicula(usuario);
             p.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Pelicuala no agregada");
+            JOptionPane.showMessageDialog(this, "Pelicula no agregada");
             
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
