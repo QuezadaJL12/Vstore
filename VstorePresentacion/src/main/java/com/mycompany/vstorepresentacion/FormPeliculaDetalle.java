@@ -128,16 +128,16 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
 
         labelNombre1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelNombre1.setForeground(new java.awt.Color(255, 255, 255));
-        labelNombre1.setText("Descripcion:");
+        labelNombre1.setText("Reseña:");
         panelFondo.add(labelNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 170, -1));
 
-        labelDescripcion.setBackground(new java.awt.Color(12, 33, 46));
+        labelDescripcion.setBackground(new java.awt.Color(0, 0, 0, 0));
         labelDescripcion.setColumns(20);
         labelDescripcion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         labelDescripcion.setRows(5);
         labelDescripcion.setText("Descripcion\n");
-        panelFondo.add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 360, 80));
+        panelFondo.add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 530, 80));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         panelFondo.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -20, -1, -1));
