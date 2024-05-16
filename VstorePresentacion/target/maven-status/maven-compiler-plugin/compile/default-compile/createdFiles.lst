@@ -1,6 +1,7 @@
 com\mycompany\vstorepresentacion\FormBuscarPelicula$2.class
 com\mycompany\vstorepresentacion\FormBuscarPelicula$ImageButton.class
 com\mycompany\vstorepresentacion\FormBuscarPelicula$9.class
+com\mycompany\vstorepresentacion\FormIniciarSesion$3.class
 com\mycompany\vstorepresentacion\FormBuscarPelicula$10.class
 com\mycompany\vstorepresentacion\FormRegistrarUsuario$1.class
 com\mycompany\vstorepresentacion\Presentacion.class
@@ -23,5 +24,6 @@ com\mycompany\vstorepresentacion\FormBuscarPelicula$6.class
 com\mycompany\vstorepresentacion\FormIniciarSesion.class
 com\mycompany\vstorepresentacion\FormAgregarPelicula$3.class
 com\mycompany\vstorepresentacion\FormBuscarPelicula$5.class
+com\mycompany\vstorepresentacion\FormBuscarPelicula$12.class
 com\mycompany\vstorepresentacion\FormIniciarSesion$2.class
 com\mycompany\vstorepresentacion\FormAgregarPelicula$1.class

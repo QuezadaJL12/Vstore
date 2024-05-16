@@ -47,28 +47,27 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         funcionalidadAgregarPelicula = new FuncionalidadAgregarPelicula();
         funcionalidadConsultarFavoritos = new FuncionalidadConsultarFavoritos();
         List<PeliculaDTO> listaPeliculas = funcionalidadConsultarPeliculas.consultarPeliculas();
-
         llenarPanel(listaPeliculas);
-       // Convertir el color RGB 0c212e a componentes individuales de rojo, verde y azul
-        int red = Integer.parseInt("0c", 16); // Convertir de hexadecimal a decimal
-        int green = Integer.parseInt("21", 16); // Convertir de hexadecimal a decimal
-        int blue = Integer.parseInt("2e", 16); // Convertir de hexadecimal a decimal
 
-// Establecer la opacidad deseada (por ejemplo, 50%)
-        int alpha = 128; // 50% de opacidad (en un rango de 0 a 255)
-
-// Crear un nuevo objeto Color con los componentes RGB y el canal alfa
-        Color colorFondo = new Color(red, green, blue, alpha);
-
-// Establecer el color de fondo del panel y su opacidad
-        this.PeliculasPanel.setBackground(colorFondo);
-
+// Convertir el color RGB 0c212e a componentes individuales de rojo, verde y azul
+//        int red = Integer.parseInt("0c", 16); // Convertir de hexadecimal a decimal
+//        int green = Integer.parseInt("21", 16); // Convertir de hexadecimal a decimal
+//        int blue = Integer.parseInt("2e", 16); // Convertir de hexadecimal a decimal
+//
+//// Establecer la opacidad deseada (por ejemplo, 50%)
+//        int alpha = 128; // 50% de opacidad (en un rango de 0 a 255)
+//
+//// Crear un nuevo objeto Color con los componentes RGB y el canal alfa
+//        Color colorFondo = new Color(red, green, blue, alpha);
+//
+//// Establecer el color de fondo del panel y su opacidad
+//        this.PeliculasPanel.setBackground(colorFondo);
 // Establecer la opacidad del panel
         this.PeliculasPanel.setOpaque(false); // Hacer que el panel sea transparente
 
-// Establecer el color de fondo del panel
+// Establecer el diseño del panel
         this.PeliculasPanel.setLayout(new GridLayout(0, 8));
-        this.PeliculasPanel.setBackground(colorFondo);
+
     }
 
     /**
@@ -93,6 +92,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         btnTodos = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         PeliculasPanel = new javax.swing.JPanel();
+        btnCambiarCuenta = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,7 +128,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, -1, -1));
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, -1, -1));
 
         btnTerror.setBackground(new java.awt.Color(0, 0, 102));
         btnTerror.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -211,6 +211,17 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         getContentPane().add(PeliculasPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 1400, 900));
         PeliculasPanel.getAccessibleContext().setAccessibleName("");
 
+        btnCambiarCuenta.setBackground(new java.awt.Color(0, 0, 102));
+        btnCambiarCuenta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCambiarCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnCambiarCuenta.setText("Cambiar Usuario");
+        btnCambiarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarCuentaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCambiarCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 10, -1, -1));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -261,12 +272,18 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
                     FormPeliculaDetalle p = new FormPeliculaDetalle(nombre, usuario);
                     p.setVisible(true);
                     dispose();
-
                 }
             });
             PeliculasPanel.add(createButtonPanel(button));
             System.out.println(pelicula.getNombre());
         }
+
+        // Establecer la opacidad del panel nuevamente
+        this.PeliculasPanel.setOpaque(false); // Hacer que el panel sea transparente
+
+        // Revalidar y repintar el panel para actualizar los cambios
+        PeliculasPanel.revalidate();
+        PeliculasPanel.repaint();
     }
 
     class ImageButton extends JButton {
@@ -309,13 +326,13 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
     private void btnFavoritos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritos1ActionPerformed
         System.out.println(usuario.getNombre());
 
-        List<FavoritoDTO> favoritos = funcionalidadConsultarFavoritos.consultarFavoritos(usuario.getUsuario());
+        List<FavoritoDTO> favoritos = funcionalidadConsultarFavoritos.consultarFavoritos(usuario.getId());
         System.out.println(favoritos);
 
         List<PeliculaDTO> peliculasConsultadas = new ArrayList<>();
         if (favoritos != null) {
             for (FavoritoDTO favorito : favoritos) {
-                PeliculaDTO pelicula = funcionalidadConsultarPeliculas.consultarPeliculasPorNombre(favorito.getPelicula());
+                PeliculaDTO pelicula = funcionalidadConsultarPeliculas.consultarPorId(favorito.getPelicula());
 
                 peliculasConsultadas.add(pelicula);
             }
@@ -342,17 +359,24 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
         llenarPanel(listaPeliculas);
     }//GEN-LAST:event_btnTodosActionPerformed
 
+    private void btnCambiarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarCuentaActionPerformed
+        FormIniciarSesion l = new FormIniciarSesion();
+        l.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCambiarCuentaActionPerformed
+
     private void buscarGenero(String nombre) {
         List<PeliculaDTO> listaPeliculas = funcionalidadConsultarPeliculasPorGenero.consultarPeliculas(nombre);
         llenarPanel(listaPeliculas);
     }
 
     private JPanel createButtonPanel(JButton button) {
-    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); // FlowLayout centrado sin espaciado
-    buttonPanel.setOpaque(false); // Hacer que el panel sea transparente
-    buttonPanel.add(button);
-    return buttonPanel;
-}
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0)); // FlowLayout centrado sin espaciado
+        buttonPanel.setOpaque(false); // Hacer que el panel sea transparente
+        buttonPanel.add(button);
+        return buttonPanel;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BuscarPelicula;
@@ -360,6 +384,7 @@ public class FormBuscarPelicula extends javax.swing.JFrame {
     private javax.swing.JButton btnAccion1;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAventura;
+    private javax.swing.JButton btnCambiarCuenta;
     private javax.swing.JButton btnComedia;
     private javax.swing.JButton btnFavoritos1;
     private javax.swing.JButton btnSalir;

@@ -9,7 +9,7 @@ import com.mycompany.vstorenegocio.negocio.IConsultarPeliculasBO;
 import java.util.List;
 
 public class FuncionalidadConsultarPeliculas implements IFuncionalidadConsultarPeliculas {
-    
+
     private IConsultarPeliculasBO consultarPeliculasBO;
 
     /**
@@ -53,5 +53,10 @@ public class FuncionalidadConsultarPeliculas implements IFuncionalidadConsultarP
     public PeliculaDTO consultarPeliculasPorNombre(String nombre) {
         return consultarPeliculasBO.consultarPorNombre(nombre);
     }
-    
+
+    @Override
+    public PeliculaDTO consultarPorId(String id) {
+        return consultarPeliculasBO.consultarPorId(id);
+    }
+
 }

@@ -1,4 +1,3 @@
-
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoreagregarfavoritos.FuncionalidadAgregarFavoritos;
@@ -17,7 +16,6 @@ import java.io.ByteArrayInputStream;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
 
 public class FormPeliculaDetalle extends javax.swing.JFrame {
 
@@ -60,7 +58,7 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
     }
 
     public boolean consultarFavorito() {
-        FavoritoDTO favorito = funcionalidadConsultarFavoritos.consultarFavorito(usuario.getUsuario(), pelicula.getNombre());
+        FavoritoDTO favorito = funcionalidadConsultarFavoritos.consultarFavorito(usuario.getId(), pelicula.getId());
         return favorito == null;
     }
 
@@ -128,7 +126,7 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
 
         labelNombre1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         labelNombre1.setForeground(new java.awt.Color(255, 255, 255));
-        labelNombre1.setText("Reseña:");
+        labelNombre1.setText("Descripcion:");
         panelFondo.add(labelNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 170, -1));
 
         labelDescripcion.setBackground(new java.awt.Color(0, 0, 0, 0));
@@ -137,7 +135,7 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
         labelDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         labelDescripcion.setRows(5);
         labelDescripcion.setText("Descripcion\n");
-        panelFondo.add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 530, 80));
+        panelFondo.add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 360, 80));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         panelFondo.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -20, -1, -1));
@@ -150,8 +148,8 @@ public class FormPeliculaDetalle extends javax.swing.JFrame {
 
     private void btnFavoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritoActionPerformed
         FavoritoDTO favorito = new FavoritoDTO();
-        favorito.setPelicula(pelicula.getNombre());
-        favorito.setUsuario(usuario.getUsuario());
+        favorito.setPelicula(pelicula.getId());
+        favorito.setUsuario(usuario.getId());
         if (consultarFavorito()) {
 
             funcionalidadAgregarFavoritos.agregarFavoritos(favorito);

@@ -26,5 +26,7 @@ public interface IFuncionalidadConsultarPeliculas {
     public List<PeliculaDTO> consultarPeliculas();
 
     public PeliculaDTO consultarPeliculasPorNombre(String nombre);
+    
+    public PeliculaDTO consultarPorId(String id);
 
 }

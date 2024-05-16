@@ -27,6 +27,8 @@ public class FuncionalidadIniciarSesion implements IFuncionalidadIniciarSesion {
     @Override
     public UsuarioDTO iniciarSesion(UsuarioDTO usuario) {
         UsuarioDTO usuarioConsultado = usuariosBO.consultarUsuario(usuario);
+        
+                
         return usuarioConsultado;
     }
 

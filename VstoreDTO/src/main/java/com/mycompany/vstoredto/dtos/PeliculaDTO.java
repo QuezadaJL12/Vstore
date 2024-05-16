@@ -23,6 +23,9 @@ public class PeliculaDTO {
         this.genero = genero;
     }
 
+    public PeliculaDTO() {
+    }
+
     /**
      * Constructor de la clase PeliculaDTO.
      * @param id El identificador de la película.

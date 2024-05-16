@@ -1,8 +1,11 @@
+pruebas\pruebasusuaios.class
 com\mycompany\vstorenegocio\negocio\FavoritosBO.class
 com\mycompany\vstorenegocio\negocio\IConsultarPeliculasBO.class
 com\mycompany\vstorenegocio\negocio\UsuariosBO.class
+pruebas\pruebaspeliculas.class
 com\mycompany\vstorenegocio\negocio\IFavoritosBO.class
 com\mycompany\vstorenegocio\negocio\IUsuariosBO.class
 com\mycompany\vstorenegocio\negocio\ConsultarPeliculasBO.class
 com\mycompany\vstorenegocio\negocio\AgregarPeliculaBO.class
+pruebas\pruebasfavoritos.class
 com\mycompany\vstorenegocio\negocio\IAgregarPeliculaBO.class

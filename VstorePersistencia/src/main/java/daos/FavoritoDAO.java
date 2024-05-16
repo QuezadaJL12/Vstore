@@ -14,6 +14,7 @@ import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.result.DeleteResult;
+import org.bson.types.ObjectId;
 
 public class FavoritoDAO implements IFavoritoDAO {
 
@@ -28,6 +29,7 @@ public class FavoritoDAO implements IFavoritoDAO {
 
     /**
      * Método para agregar un nuevo favorito a la base de datos.
+     *
      * @param favorito El objeto Favorito que se desea agregar.
      * @return El objeto Favorito agregado.
      */
@@ -42,6 +44,7 @@ public class FavoritoDAO implements IFavoritoDAO {
 
     /**
      * Método para consultar un favorito por usuario y película.
+     *
      * @param usuario El usuario del favorito que se desea consultar.
      * @param pelicula La película del favorito que se desea consultar.
      * @return El objeto Favorito consultado, o null si no se encuentra.
@@ -51,21 +54,22 @@ public class FavoritoDAO implements IFavoritoDAO {
         MongoClient cliente = conexion.obtenerCliente();
         MongoDatabase baseDatos = cliente.getDatabase("vstore");
         MongoCollection<Favorito> coleccion = baseDatos.getCollection("favoritos", Favorito.class);
-        FindIterable<Favorito> resultados = coleccion.find(and(eq("usuario", usuario), eq("pelicula", pelicula)));
+        FindIterable<Favorito> resultados = coleccion.find(and(eq("usuario", new ObjectId(usuario)), eq("pelicula", new ObjectId(pelicula))));
         return resultados.first();
     }
 
     /**
      * Método para consultar todos los favoritos de un usuario.
+     *
      * @param usuario El usuario de los favoritos que se desean consultar.
      * @return Una lista de objetos Favorito del usuario especificado.
      */
     @Override
-    public List<Favorito> consultar(String usuario) {
+    public List<Favorito> consultar(String id) {
         MongoClient cliente = conexion.obtenerCliente();
         MongoDatabase baseDatos = cliente.getDatabase("vstore");
         MongoCollection<Favorito> coleccion = baseDatos.getCollection("favoritos", Favorito.class);
-        FindIterable<Favorito> resultados = coleccion.find(and(eq("usuario", usuario)));
+        FindIterable<Favorito> resultados = coleccion.find(and(eq("usuario", new ObjectId(id))));
         List<Favorito> listaPelicula = new LinkedList<>();
         resultados.into(listaPelicula);
         return listaPelicula;
@@ -73,6 +77,7 @@ public class FavoritoDAO implements IFavoritoDAO {
 
     /**
      * Método para eliminar un favorito de la base de datos.
+     *
      * @param favorito El objeto Favorito que se desea eliminar.
      * @return true si se eliminó correctamente, false de lo contrario.
      */
@@ -81,7 +86,7 @@ public class FavoritoDAO implements IFavoritoDAO {
         MongoClient cliente = conexion.obtenerCliente();
         MongoDatabase baseDatos = cliente.getDatabase("vstore");
         MongoCollection<Favorito> coleccion = baseDatos.getCollection("favoritos", Favorito.class);
-        DeleteResult response = coleccion.deleteOne(eq("usuario", favorito.getUsuario()));
+        DeleteResult response = coleccion.deleteOne(and(eq("usuario", favorito.getUsuario()), eq("pelicula", favorito.getPelicula())));
         return response.getDeletedCount() == 1;
     }
 

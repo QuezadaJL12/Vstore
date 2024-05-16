@@ -1,4 +1,3 @@
-
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoreagregarpelicula.FuncionalidadAgregarPelicula;
@@ -15,9 +14,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-
 public class FormAgregarPelicula extends javax.swing.JFrame {
-    
+
     private IFuncionalidadAgregarPelicula funcionalidadAgregarPelicula;
     private byte[] imageBytes;
     private UsuarioDTO usuario;
@@ -52,6 +50,7 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        labelImage = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -118,6 +117,9 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/VSTORE.drawio.png"))); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        labelImage.setText("jLabel8");
+        getContentPane().add(labelImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 110, 160));
+
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoblue.jpg"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -131,31 +133,33 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
         if (file != null) {
             try {
                 BufferedImage image = ImageIO.read(file);
-                int targetWidth = 133; 
-                int targetHeight = 200; 
+                int targetWidth = 133;
+                int targetHeight = 200;
                 BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
                 Graphics2D graphics = resizedImage.createGraphics();
-                graphics.setColor(Color.WHITE); 
-                graphics.fillRect(0, 0, targetWidth, targetHeight); 
+                graphics.setColor(Color.WHITE);
+                graphics.fillRect(0, 0, targetWidth, targetHeight);
                 int x = (targetWidth - image.getWidth()) / 2;
                 int y = (targetHeight - image.getHeight()) / 2;
-                graphics.drawImage(image, x, y, null); 
+                graphics.drawImage(image, x, y, null);
                 graphics.dispose();
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 ImageIO.write(resizedImage, "jpg", outputStream);
                 this.imageBytes = outputStream.toByteArray();
             } catch (IOException ex) {
                 ex.printStackTrace();
-                
+
                 JOptionPane.showMessageDialog(null, "Error al leer la imagen");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        
+
         if (txtNombre.getText().isBlank() || imageBytes == null || txtDescripcion.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Todos los campos tienen que estar llenos.");
+            return;
+
         }
         PeliculaDTO pelicula = new PeliculaDTO(txtNombre.getText(), imageBytes, String.valueOf(txtGenero.getSelectedItem()));
         pelicula.setDescripcion(txtDescripcion.getText());
@@ -167,12 +171,12 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Pelicula no agregada");
-            
+
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        
+
         FormBuscarPelicula p = new FormBuscarPelicula(usuario);
         p.setVisible(true);
         this.dispose();
@@ -190,6 +194,7 @@ public class FormAgregarPelicula extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel labelImage;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JComboBox<String> txtGenero;
     private javax.swing.JTextField txtNombre;

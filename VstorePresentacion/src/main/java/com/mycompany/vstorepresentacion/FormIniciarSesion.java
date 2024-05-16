@@ -1,11 +1,9 @@
-
 package com.mycompany.vstorepresentacion;
 
 import com.mycompany.vstoredto.dtos.UsuarioDTO;
 import com.mycompany.vstoreiniciarsesion.FuncionalidadIniciarSesion;
 import com.mycompany.vstoreiniciarsesion.IFuncionalidadIniciarSesion;
 import javax.swing.JOptionPane;
-
 
 public class FormIniciarSesion extends javax.swing.JFrame {
 
@@ -88,6 +86,11 @@ public class FormIniciarSesion extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         PanelFondo.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
 
         btnRegistrarse.setBackground(new java.awt.Color(0, 0, 0));
@@ -124,6 +127,11 @@ public class FormIniciarSesion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Usuario no encontrado");
             return;
         }
+        System.out.println(usuarioConsultado.getId());        System.out.println(usuarioConsultado.getId());
+        System.out.println(usuarioConsultado.getId());
+        System.out.println(usuarioConsultado.getId());
+        System.out.println(usuarioConsultado.getId());
+
         FormBuscarPelicula p = new FormBuscarPelicula(usuarioConsultado);
         p.setVisible(true);
         this.dispose();
@@ -134,6 +142,9 @@ public class FormIniciarSesion extends javax.swing.JFrame {
         p.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+System.exit(0);    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

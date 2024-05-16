@@ -9,13 +9,15 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import dominio.Usuario;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 public class UsuarioDAO implements IUsuarioDAO {
 
     private IConexion conexion;
 
     /**
-     * Constructor de la clase UsuarioDAO que inicializa la conexión con la base de datos.
+     * Constructor de la clase UsuarioDAO que inicializa la conexión con la base
+     * de datos.
      */
     public UsuarioDAO() {
         conexion = new Conexion();
@@ -56,6 +58,18 @@ public class UsuarioDAO implements IUsuarioDAO {
         Bson query = Filters.eq("usuario", nombre);
 
         // Realizar la consulta
+        Usuario result = coleccion.find(query).first();
+        return result;
+    }
+
+    @Override
+    public Usuario consultar(String id) {
+        MongoClient cliente = conexion.obtenerCliente();
+        MongoDatabase baseDatos = cliente.getDatabase("vstore");
+        MongoCollection<Usuario> coleccion = baseDatos.getCollection("usuarios", Usuario.class);
+
+        Bson query = Filters.eq("_id", new ObjectId(id));
+
         Usuario result = coleccion.find(query).first();
         return result;
     }

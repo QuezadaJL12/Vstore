@@ -12,13 +12,15 @@ import java.util.LinkedList;
 import java.util.List;
 import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Filters.eq;
+import org.bson.types.ObjectId;
 
 public class PeliculaDAO implements IPeliculaDAO {
 
     private IConexion conexion;
 
     /**
-     * Constructor de la clase PeliculaDAO que inicializa la conexión con la base de datos.
+     * Constructor de la clase PeliculaDAO que inicializa la conexión con la
+     * base de datos.
      */
     public PeliculaDAO() {
         conexion = new Conexion();
@@ -72,6 +74,16 @@ public class PeliculaDAO implements IPeliculaDAO {
         MongoDatabase baseDatos = cliente.getDatabase("vstore");
         MongoCollection<Pelicula> coleccion = baseDatos.getCollection("peliculas", Pelicula.class);
         FindIterable<Pelicula> resultados = coleccion.find(eq("nombre", nombre));
+
+        return resultados.first();
+    }
+
+    @Override
+    public Pelicula consultarPorId(String id) {
+        MongoClient cliente = conexion.obtenerCliente();
+        MongoDatabase baseDatos = cliente.getDatabase("vstore");
+        MongoCollection<Pelicula> coleccion = baseDatos.getCollection("peliculas", Pelicula.class);
+        FindIterable<Pelicula> resultados = coleccion.find(eq("_id", new ObjectId(id)));
 
         return resultados.first();
     }
